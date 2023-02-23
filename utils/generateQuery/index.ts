@@ -1,4 +1,3 @@
-// const {query, entries, url} = generateQuery("test.com", {sort:"createdAt", order:"DESC", page:0, credit:null, age:undefined, available:false, used:true})
 export default function generateQuery(url: string, params?: any) {
   const urlObj = new URL(url);
 
