@@ -2,7 +2,7 @@ type valueType = string | number | boolean | null;
 
 export default class HashTable {
   private table: [string, valueType][][] = [];
-  private size: number = 0;
+  public size: number = 0;
 
   constructor(size: number = 127) {
     this.table = new Array(size);
