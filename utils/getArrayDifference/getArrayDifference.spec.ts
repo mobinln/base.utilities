@@ -1,42 +1,42 @@
 import getArrayDifference from ".";
 
 describe("getArrayDifference", () => {
-  it("should not change A if b is []", () => {
-    const A = [1, 2, 3, 4];
-    const B: number[] = [];
-    const result = getArrayDifference(A, B, (i) => String(i));
-    expect(result).toEqual(A);
-  });
-
-  it("should find difference correctly", () => {
-    const A = [1, 2, 3, 4];
-    const B = [1, 3];
-    const result = getArrayDifference(A, B, (i) => String(i));
-    expect(result).toEqual([2, 4]);
-  });
-
-  it("should be able to work with objects", () => {
-    const A = [
-      { name: "max", age: 20 },
-      { name: "alex", age: 25 },
-      { name: "mia", age: 22 },
-      { name: "maria", age: 52 },
-    ];
-    const B = [
-      { name: "alex", age: 25 },
-      { name: "mia", age: 22 },
-    ];
-    const result = getArrayDifference(A, B, (i) => i.name);
-    expect(result).toEqual([
-      { name: "max", age: 20 },
-      { name: "maria", age: 52 },
-    ]);
-  });
-
-  it("should handle the case when A is [] and B is [...]", () => {
-    const A: number[] = [];
-    const B = [2, 3];
-    const result = getArrayDifference(A, B, (i) => String(i));
+  it("should return an empty array if both input arrays are empty", () => {
+    const result = getArrayDifference([], [], (item) => String(item));
     expect(result).toEqual([]);
+  });
+
+  it("should return the same array if the second input array is empty", () => {
+    const arrayA = [1, 2, 3];
+    const result = getArrayDifference(arrayA, [], (item) => item.toString());
+    expect(result).toEqual(arrayA);
+  });
+
+  it("should return an empty array if both input arrays have the same elements", () => {
+    const arrayA = [1, 2, 3];
+    const arrayB = [1, 2, 3];
+    const result = getArrayDifference(arrayA, arrayB, (item) => item.toString());
+    expect(result).toEqual([]);
+  });
+
+  it("should return the elements from the first array that are not present in the second array", () => {
+    const arrayA = [1, 2, 3, 4, 5];
+    const arrayB = [3, 4, 5, 6, 7];
+    const result = getArrayDifference(arrayA, arrayB, (item) => item.toString());
+    expect(result).toEqual([1, 2]);
+  });
+
+  it("should handle objects as elements and compare based on a specified key", () => {
+    const arrayA = [
+      { id: 1, name: "John" },
+      { id: 2, name: "Jane" },
+      { id: 3, name: "Alice" },
+    ];
+    const arrayB = [
+      { id: 2, name: "Jane" },
+      { id: 3, name: "Alice" },
+    ];
+    const result = getArrayDifference(arrayA, arrayB, (item) => item.id.toString());
+    expect(result).toEqual([{ id: 1, name: "John" }]);
   });
 });
